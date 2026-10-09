@@ -1,0 +1,4065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Speak Wise | Speak Wise</title>
+
+<style>
+
+/* =========================================================
+   GOOGLE FONTS
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap');
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    /*
+      FANTASY / CASTLE BACKGROUND
+      This is the castle-style background used for Speak Wise.
+    */
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,7,30,.92) 0%,
+            rgba(13,10,42,.74) 38%,
+            rgba(15,10,40,.48) 70%,
+            rgba(8,7,28,.72) 100%
+        ),
+        linear-gradient(
+            rgba(20,10,55,.25),
+            rgba(7,6,28,.72)
+        ),
+        url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2200&q=90");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+/* =========================================================
+   BACKGROUND LIGHT EFFECTS
+========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(157,91,255,.20),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 40%,
+            rgba(50,110,255,.12),
+            transparent 25%
+        );
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    width: 245px;
+    min-height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    padding: 25px 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,8,40,.96),
+            rgba(18,11,55,.90)
+        );
+
+    border-right: 1px solid rgba(212,169,255,.25);
+
+    box-shadow:
+        10px 0 50px rgba(0,0,0,.35);
+
+    z-index: 100;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   SIDEBAR CORNERS
+========================================================= */
+
+.sidebar::before {
+    content: "";
+    position: absolute;
+
+    left: 8px;
+    top: 8px;
+    right: 8px;
+    bottom: 8px;
+
+    border: 1px solid rgba(191,136,255,.16);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   WELCOME CRYSTAL
+========================================================= */
+
+.welcome {
+    text-align: center;
+    padding: 12px 8px 25px;
+}
+
+.welcome-crystal {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 12px;
+
+    position: relative;
+
+    clip-path: polygon(
+        25% 5%,
+        75% 5%,
+        100% 45%,
+        50% 100%,
+        0 45%
+    );
+
+    background:
+        linear-gradient(
+            135deg,
+            #3de5ff,
+            #4d78ff,
+            #ae3dff
+        );
+
+    box-shadow:
+        0 0 15px #52dfff,
+        0 0 35px rgba(160,70,255,.7);
+}
+
+.welcome-crystal::after {
+    content: "";
+    position: absolute;
+    inset: 10px 18px;
+
+    background: rgba(255,255,255,.45);
+
+    clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+.welcome-small {
+    font-family: "Cinzel", serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #d4bce9;
+    margin-bottom: 8px;
+}
+
+.welcome-title {
+    font-family: "DM Serif Display", serif;
+    font-size: 21px;
+    color: #fff;
+}
+
+
+/* =========================================================
+   KEEP SPEAKING
+========================================================= */
+
+.keep-speaking {
+
+    margin: 8px 0 18px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    border: 1px solid #ad4cff;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(111,39,160,.50),
+            rgba(53,31,111,.48)
+        );
+
+    text-align: center;
+
+    color: #fff;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 0 22px rgba(174,65,255,.22);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav-item {
+
+    border: 1px solid transparent;
+
+    padding: 14px 13px;
+
+    border-radius: 12px;
+
+    color: #ded9ec;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    font-size: 14px;
+
+    transition: .25s;
+
+    text-align: left;
+}
+
+.nav-item:hover,
+.nav-item.active {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(115,57,165,.46),
+            rgba(64,38,108,.30)
+        );
+
+    border-color: rgba(208,144,255,.45);
+
+    color: white;
+
+    transform: translateX(3px);
+}
+
+.nav-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    margin-left: 245px;
+
+    width: calc(100% - 245px);
+
+    min-height: 100vh;
+
+    padding: 25px 30px 50px;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    padding: 5px 10px;
+}
+
+.brand {
+
+    font-family: "Cinzel", serif;
+
+    font-size: 25px;
+
+    letter-spacing: 4px;
+
+    color: #f1d58c;
+
+    text-shadow:
+        0 0 15px rgba(240,203,119,.5);
+}
+
+.brand span {
+    color: #d68cff;
+}
+
+.top-tag {
+
+    color: #d6cde9;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    text-align: center;
+
+    max-width: 900px;
+
+    margin: 15px auto 32px;
+}
+
+.hero h1 {
+
+    font-family: "Cinzel", serif;
+
+    font-size: clamp(38px,5vw,67px);
+
+    color: #f4d68e;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 15px rgba(255,218,140,.45),
+        0 0 45px rgba(167,92,255,.30);
+}
+
+.hero p {
+
+    margin-top: 10px;
+
+    color: #e0dced;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   CRYSTAL REALMS
+========================================================= */
+
+.realm-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   REALM CARD
+========================================================= */
+
+.realm-card {
+
+    min-height: 410px;
+
+    position: relative;
+
+    padding: 28px 18px 20px;
+
+    text-align: center;
+
+    border-radius: 0 0 24px 24px;
+
+    border: 1px solid rgba(214,181,255,.38);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(34,22,87,.82),
+            rgba(12,10,43,.89)
+        );
+
+    overflow: hidden;
+
+    transition:
+        transform .35s,
+        box-shadow .35s,
+        border-color .35s;
+
+    box-shadow:
+        inset 0 0 30px rgba(136,80,255,.08),
+        0 12px 40px rgba(0,0,0,.30);
+}
+
+
+/* CARD TOP CORNER */
+
+.realm-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--realm-color),
+            transparent
+        );
+
+    box-shadow:
+        0 0 20px var(--realm-color);
+}
+
+
+/* CARD GLOW */
+
+.realm-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    top: 35px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: var(--realm-color);
+
+    opacity: .10;
+
+    filter: blur(45px);
+
+    pointer-events: none;
+}
+
+
+.realm-card:hover {
+
+    transform: translateY(-10px);
+
+    border-color: var(--realm-color);
+
+    box-shadow:
+        0 15px 55px rgba(0,0,0,.5),
+        0 0 30px color-mix(
+            in srgb,
+            var(--realm-color) 35%,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   CRYSTAL ICON
+========================================================= */
+
+.crystal {
+
+    width: 78px;
+    height: 102px;
+
+    margin: 0 auto 16px;
+
+    position: relative;
+
+    clip-path:
+        polygon(
+            50% 0,
+            86% 27%,
+            100% 70%,
+            50% 100%,
+            0 70%,
+            14% 27%
+        );
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            var(--realm-color) 30%,
+            #6d2bd7 85%
+        );
+
+    box-shadow:
+        0 0 15px var(--realm-color),
+        0 0 45px var(--realm-color);
+
+    z-index: 2;
+
+    animation:
+        crystalFloat 4s ease-in-out infinite;
+}
+
+
+.crystal::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    top: 13%;
+
+    width: 25%;
+    height: 65%;
+
+    background: rgba(255,255,255,.42);
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            65% 100%
+        );
+}
+
+
+.crystal-icon {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 32px;
+
+    z-index: 5;
+
+    text-shadow:
+        0 0 12px #fff;
+}
+
+
+@keyframes crystalFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.realm-title {
+
+    font-family: "DM Serif Display", serif;
+
+    font-size: 27px;
+
+    line-height: 1.05;
+
+    min-height: 58px;
+
+    color: #fff;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.18);
+}
+
+.realm-tasks {
+
+    margin: 13px 0;
+
+    font-family: "Cinzel", serif;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #f2d796;
+}
+
+.realm-description {
+
+    min-height: 84px;
+
+    color: #e1dceb;
+
+    font-size: 14px;
+
+    line-height: 1.65;
+
+    padding: 0 5px;
+}
+
+
+/* =========================================================
+   ENTER BUTTON
+========================================================= */
+
+.enter-btn {
+
+    border: none;
+
+    padding: 12px 21px;
+
+    border-radius: 25px;
+
+    margin-top: 13px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--realm-color),
+            #9a39dd
+        );
+
+    box-shadow:
+        0 0 20px rgba(163,65,255,.25);
+
+    transition: .25s;
+}
+
+.enter-btn:hover {
+
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 28px var(--realm-color);
+}
+
+
+/* =========================================================
+   BOTTOM INFO
+========================================================= */
+
+.info-bar {
+
+    margin-top: 20px;
+
+    padding: 22px 12px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    background:
+        rgba(15,10,48,.84);
+
+    border:
+        1px solid rgba(211,172,255,.25);
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.25);
+}
+
+
+.info-item {
+
+    text-align: center;
+
+    padding: 0 20px;
+
+    border-right:
+        1px solid rgba(255,255,255,.15);
+}
+
+.info-item:last-child {
+    border-right: none;
+}
+
+.info-icon {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.info-title {
+
+    font-family: "Cinzel", serif;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    letter-spacing: .5px;
+
+    font-weight: 700;
+}
+
+.info-text {
+
+    color: #bdb6d0;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   TASK SCREEN
+========================================================= */
+
+.task-screen {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            rgba(6,5,25,.84),
+            rgba(10,7,34,.94)
+        ),
+        url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2200&q=90");
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+.task-screen.show {
+    display: block;
+}
+
+
+/* =========================================================
+   TASK HEADER
+========================================================= */
+
+.task-top {
+
+    max-width: 1450px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 5px 0 22px;
+}
+
+.back-btn {
+
+    border: 1px solid rgba(218,182,255,.4);
+
+    background:
+        rgba(36,20,70,.72);
+
+    color: white;
+
+    padding: 11px 17px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+.task-brand {
+
+    font-family: "Cinzel", serif;
+
+    color: #f1d58e;
+
+    font-size: 23px;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================================================
+   TASK BODY
+========================================================= */
+
+.task-layout {
+
+    max-width: 1450px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 280px 1fr;
+
+    gap: 22px;
+}
+
+
+/* =========================================================
+   TASK SIDEBAR
+========================================================= */
+
+.task-sidebar {
+
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(17,12,49,.87);
+
+    border: 1px solid rgba(218,181,255,.25);
+
+    height: fit-content;
+}
+
+.task-sidebar h3 {
+
+    font-family: "Cinzel", serif;
+
+    color: #f1d38b;
+
+    margin-bottom: 16px;
+}
+
+.task-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 8px;
+}
+
+.task-number {
+
+    height: 46px;
+
+    border-radius: 11px;
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: #ddd;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition: .2s;
+}
+
+.task-number.current {
+
+    background:
+        linear-gradient(
+            135deg,
+            #9d54df,
+            #6538cc
+        );
+
+    border-color: #e2c4ff;
+
+    box-shadow:
+        0 0 17px rgba(170,83,255,.55);
+}
+
+.task-number.completed {
+
+    background:
+        linear-gradient(
+            135deg,
+            #317d67,
+            #49a77e
+        );
+
+    border-color:
+        #8de0b8;
+}
+
+.task-number.locked {
+
+    opacity: .30;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TASK CONTENT
+========================================================= */
+
+.task-content {
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31,23,72,.94),
+            rgba(9,8,32,.93)
+        );
+
+    border:
+        1px solid rgba(216,181,255,.28);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45);
+}
+
+.task-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.task-heading h2 {
+
+    font-family: "Cinzel", serif;
+
+    color: #f3d58e;
+
+    font-size: 29px;
+}
+
+.task-heading p {
+
+    color: #bdb4ce;
+
+    margin-top: 5px;
+}
+
+.task-badge {
+
+    padding: 9px 15px;
+
+    border-radius: 22px;
+
+    color: #ead6ff;
+
+    border: 1px solid #a96bdd;
+
+    background:
+        rgba(150,76,218,.18);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PROMPT BOX
+========================================================= */
+
+.prompt-box {
+
+    background:
+        rgba(7,6,25,.65);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    border-radius: 20px;
+
+    padding: 27px;
+
+    margin-bottom: 20px;
+}
+
+.prompt-label {
+
+    color: #d1a7ff;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.4px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    margin-bottom: 14px;
+}
+
+.prompt-text {
+
+    color: #f1edf8;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    white-space: pre-line;
+
+    max-height: 430px;
+
+    overflow-y: auto;
+
+    padding-right: 10px;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 22px;
+}
+
+.action {
+
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition: .2s;
+}
+
+.action:hover {
+    transform: translateY(-2px);
+}
+
+.read-btn {
+    background: linear-gradient(135deg,#7250a8,#9961da);
+}
+
+.record-btn {
+    background: linear-gradient(135deg,#9b367b,#d35891);
+}
+
+.stop-btn {
+    background: #783d48;
+}
+
+.play-btn {
+    background: linear-gradient(135deg,#3778ad,#4c9bd6);
+}
+
+.clear-btn {
+    background: #48425d;
+}
+
+
+/* =========================================================
+   SPEECH PANELS
+========================================================= */
+
+.speech-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+.speech-box {
+
+    background:
+        rgba(5,5,19,.55);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: 17px;
+
+    padding: 20px;
+}
+
+.speech-box h4 {
+
+    color: #d5b8ff;
+
+    margin-bottom: 12px;
+}
+
+.transcript {
+
+    min-height: 120px;
+
+    color: #ddd;
+
+    line-height: 1.7;
+
+    white-space: pre-line;
+
+    max-height: 250px;
+
+    overflow-y: auto;
+}
+
+.placeholder {
+
+    color: #716b7d;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+.score-panel {
+
+    margin-top: 20px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(81,52,133,.48),
+            rgba(17,20,59,.72)
+        );
+
+    border:
+        1px solid rgba(215,180,255,.22);
+}
+
+.score-label {
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    font-size: 12px;
+
+    color: #bda8d8;
+}
+
+.score {
+
+    font-family: "Cinzel", serif;
+
+    font-size: 58px;
+
+    color: #f0d286;
+
+    margin: 4px 0;
+}
+
+.score-message {
+
+    color: #ddd;
+}
+
+.success {
+    color: #8de0b2;
+}
+
+.failed {
+    color: #ee9a9a;
+}
+
+
+/* =========================================================
+   CONVERSATION
+========================================================= */
+
+.conversation-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
+}
+
+.dialogue {
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+}
+
+.dialogue-role {
+
+    color: #e4bd70;
+
+    font-weight: 800;
+
+    margin-bottom: 6px;
+}
+
+.dialogue-text {
+
+    color: #eee;
+
+    line-height: 1.7;
+}
+
+.conversation-status {
+
+    text-align: center;
+
+    color: #cbb5e8;
+
+    min-height: 22px;
+
+    margin: 10px 0;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-area {
+
+    margin-top: 20px;
+}
+
+.progress-head {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #dcd5e8;
+
+    font-size: 13px;
+
+    margin-bottom: 7px;
+}
+
+.progress-bar {
+
+    height: 10px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.progress-fill {
+
+    height: 100%;
+
+    width: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a45ee9,
+            #e0c16e
+        );
+
+    transition: .4s;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1150px) {
+
+    .realm-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .task-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .task-sidebar {
+        order: 2;
+    }
+}
+
+
+@media(max-width:800px) {
+
+    .sidebar {
+
+        width: 75px;
+
+        padding: 18px 8px;
+    }
+
+    .welcome-small,
+    .welcome-title,
+    .keep-speaking,
+    .nav-text {
+        display: none;
+    }
+
+    .welcome-crystal {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-item {
+        justify-content: center;
+    }
+
+    .main {
+
+        margin-left: 75px;
+
+        width:
+            calc(100% - 75px);
+
+        padding: 20px 15px;
+    }
+
+    .realm-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-bar {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .info-item {
+        border-right: none;
+    }
+}
+
+
+@media(max-width:600px) {
+
+    .main {
+        padding: 15px 10px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .info-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .speech-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .task-screen {
+        padding: 15px;
+    }
+
+    .task-content {
+        padding: 18px;
+    }
+
+    .task-heading {
+        flex-direction: column;
+    }
+}
+
+/* SCORE-ONLY DISPLAY: hide recognized transcript and NLP detail panels. */
+.speech-grid {
+    display: none !important;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     APPLICATION
+====================================================== -->
+
+<div class="app">
+
+
+<!-- ======================================================
+     SIDEBAR
+====================================================== -->
+
+<aside class="sidebar">
+
+    <div class="welcome">
+
+        <div class="welcome-crystal"></div>
+
+        <div class="welcome-small">
+            WELCOME
+        </div>
+
+        <div class="welcome-title">
+            CRYSTAL LEARNER
+        </div>
+
+    </div>
+
+
+    <div class="keep-speaking">
+        ✦ Keep Speaking!
+    </div>
+
+
+    <nav class="nav-menu">
+
+        <button
+            class="nav-item active"
+            onclick="showHome()"
+        >
+            <span class="nav-icon">⌂</span>
+            <span class="nav-text">Home</span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showProgress()"
+        >
+            <span class="nav-icon">▥</span>
+            <span class="nav-text">My Progress</span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showAchievements()"
+        >
+            <span class="nav-icon">♜</span>
+            <span class="nav-text">Achievements</span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showLeaderboard()"
+        >
+            <span class="nav-icon">♛</span>
+            <span class="nav-text">Leaderboard</span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            onclick="showHelp()"
+        >
+            <span class="nav-icon">?</span>
+            <span class="nav-text">Help & Support</span>
+        </button>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- ======================================================
+     MAIN HOME
+====================================================== -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <div class="brand">
+            SPEAK <span>WISE</span>
+        </div>
+
+        <div class="top-tag">
+            Explore. Speak. Shine.
+        </div>
+
+    </div>
+
+
+    <section class="hero">
+
+        <h1>
+            Speaking Wise
+        </h1>
+
+        <p>
+            Enter each realm, complete your speaking challenges,
+            improve your pronunciation and unlock your next crystal
+            through NLP-powered speech practice.
+        </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         FOUR REALMS
+    ================================================== -->
+
+    <section class="realm-grid">
+
+
+        <!-- TONGUE -->
+        <article
+            class="realm-card"
+            style="--realm-color:#e44fff"
+        >
+
+            <div class="crystal">
+
+                <div class="crystal-icon">
+                    🗣️
+                </div>
+
+            </div>
+
+            <h2 class="realm-title">
+                TONGUE<br>
+                TWISTERS
+            </h2>
+
+            <div class="realm-tasks">
+                ✦ 20 TASKS ✦
+            </div>
+
+            <p class="realm-description">
+                Challenge your pronunciation with tricky
+                tongue twisters and speak with clarity,
+                rhythm and confidence.
+            </p>
+
+            <button
+                class="enter-btn"
+                onclick="openRealm('tongue')"
+            >
+                ENTER REALM →
+            </button>
+
+        </article>
+
+
+
+        <!-- VOICE -->
+        <article
+            class="realm-card"
+            style="--realm-color:#42a9ff"
+        >
+
+            <div class="crystal">
+
+                <div class="crystal-icon">
+                    🎙️
+                </div>
+
+            </div>
+
+            <h2 class="realm-title">
+                VOICE<br>
+                OVER
+            </h2>
+
+            <div class="realm-tasks">
+                ✦ 20 TASKS ✦
+            </div>
+
+            <p class="realm-description">
+                Give life to words. Practice long voice-over
+                passages and bring your voice confidently
+                into the spotlight.
+            </p>
+
+            <button
+                class="enter-btn"
+                onclick="openRealm('voice')"
+            >
+                ENTER REALM →
+            </button>
+
+        </article>
+
+
+
+        <!-- NARRATE -->
+        <article
+            class="realm-card"
+            style="--realm-color:#ffbd4b"
+        >
+
+            <div class="crystal">
+
+                <div class="crystal-icon">
+                    📚
+                </div>
+
+            </div>
+
+            <h2 class="realm-title">
+                NARRATE<br>
+                ALOUD
+            </h2>
+
+            <div class="realm-tasks">
+                ✦ 20 TASKS ✦
+            </div>
+
+            <p class="realm-description">
+                Read, narrate and express beautiful stories
+                with confidence, emotion and natural
+                speaking flow.
+            </p>
+
+            <button
+                class="enter-btn"
+                onclick="openRealm('narrate')"
+            >
+                ENTER REALM →
+            </button>
+
+        </article>
+
+
+
+        <!-- CONVERSATION -->
+        <article
+            class="realm-card"
+            style="--realm-color:#c14cff"
+        >
+
+            <div class="crystal">
+
+                <div class="crystal-icon">
+                    🎭
+                </div>
+
+            </div>
+
+            <h2 class="realm-title">
+                CONVERSATION<br>
+                ROLE
+            </h2>
+
+            <div class="realm-tasks">
+                ✦ 20 TASKS ✦
+            </div>
+
+            <p class="realm-description">
+                Step into different roles and practice
+                realistic conversations naturally with
+                timing and expression.
+            </p>
+
+            <button
+                class="enter-btn"
+                onclick="openRealm('conversation')"
+            >
+                ENTER REALM →
+            </button>
+
+        </article>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         INFORMATION BAR
+    ================================================== -->
+
+    <section class="info-bar">
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                💎
+            </div>
+
+            <div class="info-title">
+                20 TASKS EACH
+            </div>
+
+            <div class="info-text">
+                Complete all 20 tasks in every
+                communication realm.
+            </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                ✦
+            </div>
+
+            <div class="info-title">
+                55% TO PASS
+            </div>
+
+            <div class="info-text">
+                Score 55% or more to unlock
+                the next crystal.
+            </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                🎙️
+            </div>
+
+            <div class="info-title">
+                SPEAK & IMPROVE
+            </div>
+
+            <div class="info-text">
+                Listen, record, analyze and
+                improve your speaking skills.
+            </div>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="info-icon">
+                🏆
+            </div>
+
+            <div class="info-title">
+                UNLOCK ALL
+            </div>
+
+            <div class="info-text">
+                Complete every realm to unlock
+                the Crystal Castle.
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+</div>
+
+
+
+<!-- ======================================================
+     TASK SCREEN
+====================================================== -->
+
+<section
+    class="task-screen"
+    id="taskScreen"
+>
+
+    <div class="task-top">
+
+        <button
+            class="back-btn"
+            onclick="closeRealm()"
+        >
+            ← Back to Crystal Realms
+        </button>
+
+        <div class="task-brand">
+            SPEAK WISE
+        </div>
+
+        <div></div>
+
+    </div>
+
+
+
+    <div class="task-layout">
+
+
+        <!-- TASK SIDEBAR -->
+
+        <aside class="task-sidebar">
+
+            <h3 id="taskCategoryTitle">
+                Crystal Tasks
+            </h3>
+
+            <div
+                class="task-list"
+                id="taskList"
+            ></div>
+
+
+            <div class="progress-area">
+
+                <div class="progress-head">
+
+                    <span>
+                        Category Progress
+                    </span>
+
+                    <span id="progressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- TASK CONTENT -->
+
+        <div class="task-content">
+
+
+            <div class="task-heading">
+
+                <div>
+
+                    <h2 id="taskTitle">
+                        Task 1
+                    </h2>
+
+                    <p id="taskSubtitle">
+                        Speak clearly and confidently.
+                    </p>
+
+                </div>
+
+                <div
+                    class="task-badge"
+                    id="taskBadge"
+                >
+                    💎 Task 1 / 20
+                </div>
+
+            </div>
+
+
+            <div id="mainContent"></div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls">
+
+                <button
+                    class="action read-btn"
+                    onclick="readPrompt()"
+                >
+                    🔊 Read Prompt
+                </button>
+
+
+                <button
+                    class="action record-btn"
+                    onclick="startRecording()"
+                >
+                    🎤 Start Recording
+                </button>
+
+
+                <button
+                    class="action stop-btn"
+                    onclick="stopRecording()"
+                >
+                    ⏹ Stop
+                </button>
+
+
+                <button
+                    class="action play-btn"
+                    onclick="playRecording()"
+                >
+                    ▶ Playback
+                </button>
+
+
+                <button
+                    class="action clear-btn"
+                    onclick="clearResult()"
+                >
+                    ↻ Clear
+                </button>
+
+            </div>
+
+
+
+            <!-- SPEECH / NLP -->
+
+            <div class="speech-grid">
+
+                <div class="speech-box">
+
+                    <h4>
+                        📝 Your Speech
+                    </h4>
+
+                    <div
+                        class="transcript"
+                        id="transcript"
+                    >
+                        <span class="placeholder">
+                            Your recognized speech will appear here...
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="speech-box">
+
+                    <h4>
+                        🧠 NLP Analysis
+                    </h4>
+
+                    <div
+                        class="transcript"
+                        id="nlpAnalysis"
+                    >
+                        <span class="placeholder">
+                            Complete your recording to see NLP analysis...
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SCORE -->
+
+            <div class="score-panel">
+
+                <div class="score-label">
+                    Speaking Activity Score
+                </div>
+
+                <div
+                    class="score"
+                    id="score"
+                >
+                    --
+                </div>
+
+                <div
+                    class="score-message"
+                    id="scoreMessage"
+                >
+                    Speaking-time score: 55% required
+                </div>
+
+            </div>
+
+
+            <div
+                class="conversation-status"
+                id="conversationStatus"
+            ></div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+/* =========================================================
+   SPEAK WISE DATA
+========================================================= */
+
+const TOTAL_TASKS = 20;
+const PASS_MARK = 55;
+
+let currentCategory = "tongue";
+let currentTask = 1;
+
+let recognition = null;
+let mediaRecorder = null;
+
+let audioChunks = [];
+let recordedAudio = null;
+let recordingStartedAt = 0;
+
+let conversationTimer = null;
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+let progress =
+    JSON.parse(
+        localStorage.getItem(
+            "speakWiseProgress"
+        )
+    ) ||
+    {
+        tongue: [],
+        voice: [],
+        narrate: [],
+        conversation: []
+    };
+
+
+function saveProgress() {
+
+    localStorage.setItem(
+        "speakWiseProgress",
+        JSON.stringify(progress)
+    );
+
+}
+
+
+/* =========================================================
+   TONGUE TWISTERS
+========================================================= */
+
+const tongueTexts = [
+
+"Peter Piper picked a pack of perfectly prepared purple peppers. The playful puppy proudly pranced past the pretty purple porch while Peter carefully counted every pepper. Practice this passage slowly first, then repeat it with clear pronunciation, steady rhythm and confident expression.",
+
+"Six slippery snails slowly slid across seven silver stones. The small snails searched for soft leaves while the shining sun warmed the stones. Speak each sound clearly and avoid rushing through the repeated s and sh sounds.",
+
+"Bright blue butterflies bravely bounced between blooming bushes beside the beautiful bridge. The breeze blew gently while the butterflies balanced carefully on bright blue flowers. Focus on the difference between b, br, bl and the soft flowing sounds.",
+
+"Freshly fried fish floated beside five fragrant flowers. Fred carefully folded four fresh fish into a fine silver foil. Speak this passage with clear f and fr sounds while maintaining an even speaking speed.",
+
+"Round red roses rested near a row of royal red ribbons. Rita rapidly rolled the ribbons around the roses and rearranged the roses beside the ribbons. Concentrate on the repeated r sound and maintain a confident rhythm.",
+
+"Seven clever students studied six scientific subjects before sunset. Slowly they solved difficult problems and shared simple solutions with their classmates. Pronounce every word clearly and keep your voice steady from beginning to end.",
+
+"Green grapes grew gracefully along the garden gate while Greg gently gathered the greatest bunches. He gave the grapes to grateful guests gathered near the gate. Focus on g, gr and gl sounds without dropping the final consonants.",
+
+"Three thoughtful brothers threw thirty thick threads through three tiny holes. They carefully checked each thread before throwing another one. Speak slowly and clearly, especially when pronouncing th at the beginning and middle of words.",
+
+"Busy bees buzzed between bright blossoms before breakfast. Bella brought a basket and carefully watched the bees while the beautiful garden became brighter. Maintain clear b and buzzing z sounds throughout the passage.",
+
+"Quick queens quietly questioned clever knights about the quality of their equipment. The knights quickly answered every question before the queen announced the final decision. Practice the q, qu and k sounds without stopping between phrases.",
+
+"Five friendly frogs freely floated across a fresh flowing stream. Frank followed the frogs while finding four flat stones near the forest. Speak with a smooth rhythm and pronounce every f and fl sound clearly.",
+
+"Little Lucy loves learning long lists of lovely lessons. She carefully listens, learns, repeats and remembers every lesson before leaving the learning room. Keep your voice natural while clearly pronouncing l sounds.",
+
+"Thirty three thoughtful thinkers thanked their teacher for thirty three useful things. They thought carefully before answering every question and then thanked their classmates. Focus on clear th pronunciation and avoid replacing it with t or d.",
+
+"Sam's seven shiny shoes stood safely beside the small staircase. Sarah slowly selected the cleanest shoes and stored them inside a silver box. Keep the repeated s and sh sounds distinct while maintaining a comfortable speed.",
+
+"Wild winds whistled while white waves washed the wide wooden walkway. William watched the waves and wondered whether the weather would become warmer. Practice w sounds clearly and maintain smooth transitions between words.",
+
+"Grace gracefully greeted the guests gathered near the golden gate. The guests gladly thanked Grace for guiding them through the grand garden. Speak with confidence and focus on the repeated gr and gl combinations.",
+
+"Clean green glass glowed gently under the golden garden lights. Clara carefully cleaned every glass before placing them on a large wooden table. Keep the hard g and soft sounds clear throughout the passage.",
+
+"Brave brown bears brought bright berries back from the beautiful forest. The bears carefully balanced the berries before sharing them beside a broad wooden bridge. Practice br, b and berry sounds clearly.",
+
+"Fresh flowers filled five fancy vases beside the front window. Fiona carefully fixed every flower before friends arrived for the evening. Focus on f, fl and fr sounds and keep your speech expressive.",
+
+"Quickly, quietly and carefully, Kevin carried twenty clean boxes across the quiet courtyard. He counted every box twice before closing the large wooden door. Maintain accuracy while gradually increasing your speaking speed."
+
+];
+
+
+/* =========================================================
+   VOICE OVER TOPICS
+========================================================= */
+
+const voiceTopics = [
+
+"The Importance of Communication",
+"Building Self Confidence",
+"The Value of Teamwork",
+"Learning From Failure",
+"Time Management",
+"Technology in Modern Life",
+"Protecting Our Environment",
+"The Power of Positive Thinking",
+"Education and Personal Growth",
+"Leadership and Responsibility",
+"The Importance of Friendship",
+"Developing Good Habits",
+"The Future of Artificial Intelligence",
+"Healthy Communication",
+"The Value of Creativity",
+"Overcoming Challenges",
+"Professional Communication",
+"The Value of Discipline",
+"Responsibility in Society",
+"Achieving Personal Goals"
+
+];
+
+
+/* =========================================================
+   GENERATE LONG VOICE PASSAGE
+========================================================= */
+
+function createVoicePassage(topic, number) {
+
+return `
+Voice Over Task ${number}
+
+Topic: ${topic}
+
+Communication is an essential part of everyday life. Every person uses communication to share ideas, express feelings, explain information, solve problems and build relationships. The way a message is delivered can be just as important as the message itself. A clear voice, suitable pronunciation, natural pauses and confident expression help listeners understand information easily.
+
+Today, our topic is ${topic}. This subject is important because it can influence the way people think, learn, work and interact with others. When we understand the importance of ${topic}, we become better prepared to face different situations in education, professional environments and daily life.
+
+A good speaker does not simply speak quickly or loudly. Effective speaking requires clarity, rhythm and control. The speaker should pronounce words carefully and give listeners enough time to understand each idea. Natural pauses can make a message more interesting and can also help the speaker organize thoughts before continuing.
+
+Many learners feel nervous when they speak in front of other people. This is completely normal. Confidence develops through regular practice. A learner who records their voice, listens carefully and tries again can gradually identify areas that need improvement. Over time, pronunciation becomes clearer, vocabulary becomes stronger and speaking becomes more natural.
+
+${topic} also reminds us that communication is connected with listening. A person who listens carefully can understand another person's ideas and respond appropriately. Good communication is therefore a two-way process. Speaking clearly and listening carefully should always be developed together.
+
+In education, communication skills are extremely valuable. Students may need to answer questions, present projects, participate in discussions, explain experiments or attend interviews. A student who can express ideas clearly can communicate knowledge more effectively.
+
+In the workplace, communication becomes even more important. Employees may communicate with colleagues, managers, customers and members of the public. Instructions need to be understood correctly, information needs to be shared accurately and problems need to be discussed calmly. Strong communication can improve teamwork and productivity.
+
+Modern technology has created many new ways of communicating. People use video conferences, online classrooms, digital platforms, messaging applications and social networks. These technologies connect people across long distances, but effective communication skills are still necessary. A clear voice and organized message can make online communication more successful.
+
+Another important part of speaking is expression. The same sentence can sound different depending on the speaker's tone. A serious message may require a calm voice. An exciting story may require more energy. A helpful explanation should sound friendly and patient. Good speakers understand how to adjust their voice according to the situation.
+
+As you read this passage, imagine that you are speaking to a real audience. Do not rush. Take a short pause after each important idea. Pronounce every word carefully. Allow your voice to rise and fall naturally. Try to sound confident, interested and comfortable.
+
+Remember that improvement does not happen in a single day. Every recording is an opportunity to learn. Every mistake provides information about what can be improved. Every successful sentence builds confidence.
+
+The most important lesson from ${topic} is that continuous practice creates progress. A person who practices regularly can become more comfortable with speaking and can communicate ideas with greater confidence.
+
+As you reach the end of this passage, maintain your energy and clarity. Speak the final sentences with confidence. Imagine that your listeners are paying attention to every word.
+
+Communication is a skill that can be developed by everyone. With patience, practice and a willingness to learn, each learner can become a clear, confident and effective speaker.
+
+Thank you for listening. Continue practising, continue learning and continue speaking with confidence.
+`;
+
+}
+
+
+const voiceTexts =
+    voiceTopics.map(
+        (topic,index) =>
+            createVoicePassage(
+                topic,
+                index + 1
+            )
+    );
+
+
+/* =========================================================
+   NARRATION TOPICS
+========================================================= */
+
+const narrateTopics = [
+
+"The Magic Book",
+"The Lost Key",
+"The Secret Garden",
+"The Little Explorer",
+"The Mysterious Castle",
+"The Helpful Robot",
+"The Old Photograph",
+"The Hidden Treasure",
+"The Brave Little Bird",
+"The Journey to the Moon",
+"The Talking Tree",
+"The Forgotten Village",
+"The Friendly Dragon",
+"The Unexpected Letter",
+"The Rainy Day Adventure",
+"The Clever Student",
+"The Door Behind the Wall",
+"The Lighthouse Mystery",
+"The Time Traveler",
+"The Last Star"
+
+];
+
+
+/* =========================================================
+   NARRATION PASSAGES
+========================================================= */
+
+function createNarration(topic, index) {
+
+return `
+Narration Task ${index}
+
+Topic: ${topic}
+
+Imagine that you are standing in front of an audience and telling an interesting story.
+
+One quiet morning, a young person discovered something unusual connected with ${topic}. At first, the discovery appeared ordinary, but after looking more carefully, the character realized that something mysterious was happening.
+
+The character became curious and decided to investigate. Instead of immediately returning home, the character followed a small clue that appeared nearby. The journey led through an unfamiliar place filled with unexpected sounds, interesting sights and mysterious signs.
+
+As the journey continued, the character met someone who knew a little about the secret. This person explained that the discovery had a connection with an old event that had been forgotten by many people.
+
+The character listened carefully and decided to continue the journey.
+
+Soon another clue appeared.
+
+This clue created a new question. What was really hidden behind the mystery?
+
+The character felt nervous but remembered an important lesson: courage does not mean having no fear. Courage means continuing even when something feels difficult.
+
+After walking for some time, the character finally reached a special place connected with ${topic}. The surroundings were peaceful, but there was a feeling that something important was about to happen.
+
+A hidden door appeared.
+
+The character slowly opened it.
+
+Inside was something completely unexpected.
+
+Instead of finding danger, the character discovered an opportunity to help another person.
+
+The experience changed the entire purpose of the journey. The character understood that curiosity can lead to knowledge, but kindness gives knowledge a meaningful purpose.
+
+The character decided to help.
+
+After completing the difficult task, everything became clear. The mystery was no longer frightening. It had become a valuable lesson.
+
+The journey connected with ${topic} taught the character about patience, courage, kindness and responsibility.
+
+Now narrate this story as if you are speaking to a real audience.
+
+Use a calm voice when introducing the story.
+
+Use a little suspense when describing the mystery.
+
+Use excitement when the important discovery happens.
+
+Pause briefly before revealing surprising information.
+
+Use a warm and confident tone while explaining the final lesson.
+
+Remember that narration is not simply reading words. A good narrator creates pictures in the listener's imagination.
+
+Speak naturally.
+
+Use appropriate pauses.
+
+Change your tone according to the situation.
+
+Complete the story with confidence and explain the lesson learned from ${topic}.
+`;
+
+}
+
+
+const narrateTexts =
+    narrateTopics.map(
+        (topic,index) =>
+            createNarration(
+                topic,
+                index + 1
+            )
+    );
+
+
+/* =========================================================
+   CONVERSATION TOPICS
+========================================================= */
+
+const conversationTopics = [
+
+{
+    title:"Shopkeeper and Customer",
+    userRole:"Customer",
+    lines:[
+        ["Shopkeeper","Good morning! Welcome to our store. How can I help you today?"],
+        ["Customer","Good morning. I am looking for a comfortable school bag for daily use."],
+        ["Shopkeeper","Certainly. We have several models. Would you prefer a lightweight bag or one with extra compartments?"],
+        ["Customer","I would like a lightweight bag, but I also need enough space for my books and laptop."],
+        ["Shopkeeper","In that case, I recommend this model. It has separate compartments and padded shoulder straps."],
+        ["Customer","It looks good. Is the material strong enough for regular use?"],
+        ["Shopkeeper","Yes. The material is waterproof and designed for everyday use."],
+        ["Customer","How much does it cost?"],
+        ["Shopkeeper","The price is two thousand rupees, but we currently have a small discount."],
+        ["Customer","That sounds reasonable. I will take the bag."],
+        ["Shopkeeper","Excellent choice. I will pack it for you."],
+        ["Customer","Thank you for your help."],
+        ["Shopkeeper","You are very welcome. Have a wonderful day."]
+    ]
+},
+
+{
+    title:"Doctor and Patient",
+    userRole:"Patient",
+    lines:[
+        ["Doctor","Good morning. Please have a seat. What seems to be the problem?"],
+        ["Patient","Good morning, doctor. I have been feeling tired and uncomfortable for the past few days."],
+        ["Doctor","Can you describe what you have been experiencing?"],
+        ["Patient","I feel tired during the day and sometimes I find it difficult to concentrate."],
+        ["Doctor","How has your sleep been recently?"],
+        ["Patient","My sleep schedule has not been very regular because I have been studying late."],
+        ["Doctor","That may be contributing to your tiredness. How much water do you usually drink?"],
+        ["Patient","Probably not enough. I often forget to drink water when I am busy."],
+        ["Doctor","Try to maintain a regular routine and get enough rest."],
+        ["Patient","I will try to improve my routine. Is there anything else I should do?"],
+        ["Doctor","Eat balanced meals, take breaks and include physical activity in your day."],
+        ["Patient","Thank you, doctor. I will follow your advice."]
+    ]
+},
+
+{
+    title:"Student and Teacher",
+    userRole:"Student",
+    lines:[
+        ["Teacher","Good morning. Have you completed your project?"],
+        ["Student","Good morning, sir. I have completed most of it, but I need some help with the final section."],
+        ["Teacher","What difficulty are you facing?"],
+        ["Student","I am not sure how to explain my results clearly."],
+        ["Teacher","Start by presenting the main observation and then explain what the result means."],
+        ["Student","Should I include all the experimental details?"],
+        ["Teacher","Include the important details, but avoid unnecessary information."],
+        ["Student","I understand. Should I also prepare slides for the presentation?"],
+        ["Teacher","Yes. Use simple slides and explain the important points in your own words."],
+        ["Student","Thank you for the guidance. I will complete it today."],
+        ["Teacher","Good. Remember to practise your presentation before submitting it."]
+    ]
+},
+
+{
+    title:"Hotel Receptionist and Guest",
+    userRole:"Guest",
+    lines:[
+        ["Receptionist","Good evening. Welcome to the hotel. How may I assist you?"],
+        ["Guest","Good evening. I have a reservation for tonight."],
+        ["Receptionist","May I have your name and booking details, please?"],
+        ["Guest","Certainly. The reservation is under my name and I booked a single room."],
+        ["Receptionist","Thank you. I can see your reservation here."],
+        ["Guest","Could you please tell me what time breakfast is served?"],
+        ["Receptionist","Breakfast is served from seven to ten in the morning."],
+        ["Guest","Is Wi-Fi available in the room?"],
+        ["Receptionist","Yes, complimentary Wi-Fi is available throughout the hotel."],
+        ["Guest","Could you also tell me where the restaurant is?"],
+        ["Receptionist","The restaurant is on the ground floor, next to the lobby."],
+        ["Guest","Thank you for your assistance."],
+        ["Receptionist","You are welcome. I hope you enjoy your stay."]
+    ]
+},
+
+{
+    title:"Bank Officer and Customer",
+    userRole:"Customer",
+    lines:[
+        ["Bank Officer","Good morning. How can I help you?"],
+        ["Customer","Good morning. I would like to open a savings account."],
+        ["Bank Officer","Certainly. Do you have the required identification documents?"],
+        ["Customer","Yes, I have brought my identification and address documents."],
+        ["Bank Officer","Excellent. Please complete this application form."],
+        ["Customer","Could you explain the minimum balance requirement?"],
+        ["Bank Officer","The minimum balance depends on the type of account you choose."],
+        ["Customer","I would prefer an account with a simple minimum balance requirement."],
+        ["Bank Officer","I can explain our basic savings account."],
+        ["Customer","That would be helpful. Thank you."],
+        ["Bank Officer","You are welcome. I will guide you through the remaining steps."]
+    ]
+},
+
+{
+    title:"Passenger and Ticket Officer",
+    userRole:"Passenger",
+    lines:[
+        ["Ticket Officer","Good morning. Where would you like to travel today?"],
+        ["Passenger","Good morning. I would like a ticket to Chennai."],
+        ["Ticket Officer","Would you like a one-way or return ticket?"],
+        ["Passenger","I would like a return ticket, please."],
+        ["Ticket Officer","What date would you like to return?"],
+        ["Passenger","I would like to return after three days."],
+        ["Ticket Officer","Certainly. There is a morning service available."],
+        ["Passenger","What time does the train leave?"],
+        ["Ticket Officer","It leaves at eight thirty in the morning."],
+        ["Passenger","That timing is convenient. I will take that ticket."],
+        ["Ticket Officer","Certainly. Here is your ticket. Have a pleasant journey."]
+    ]
+},
+
+{
+    title:"Librarian and Student",
+    userRole:"Student",
+    lines:[
+        ["Librarian","Good afternoon. How can I help you?"],
+        ["Student","I am looking for books about environmental science."],
+        ["Librarian","Certainly. You can find them in the science section."],
+        ["Student","Could you recommend a beginner-friendly book?"],
+        ["Librarian","Yes. This introductory book explains the main concepts clearly."],
+        ["Student","Can I borrow this book for a week?"],
+        ["Librarian","Yes. Students can borrow it for fourteen days."],
+        ["Student","That is helpful. Do I need my library card?"],
+        ["Librarian","Yes, please show your card when you borrow the book."],
+        ["Student","Thank you for your assistance."],
+        ["Librarian","You are welcome. I hope you enjoy reading it."]
+    ]
+},
+
+{
+    title:"Interviewer and Candidate",
+    userRole:"Candidate",
+    lines:[
+        ["Interviewer","Good morning. Please introduce yourself."],
+        ["Candidate","Good morning. I am a motivated student interested in developing my professional skills."],
+        ["Interviewer","What are your strongest skills?"],
+        ["Candidate","My strongest skills are communication, teamwork, problem-solving and willingness to learn."],
+        ["Interviewer","How do you handle difficult situations?"],
+        ["Candidate","I try to remain calm, understand the problem and consider possible solutions."],
+        ["Interviewer","Why do you want this opportunity?"],
+        ["Candidate","I want to gain practical experience and contribute positively to the organization."],
+        ["Interviewer","What is one quality you want to improve?"],
+        ["Candidate","I want to improve my public speaking and become more confident while presenting ideas."],
+        ["Interviewer","That is a good goal. Thank you for your time."],
+        ["Candidate","Thank you for giving me this opportunity."]
+    ]
+},
+
+{
+    title:"Customer and Restaurant Server",
+    userRole:"Customer",
+    lines:[
+        ["Server","Good evening. Welcome to our restaurant. May I take your order?"],
+        ["Customer","Good evening. Yes, I would like to see the menu first."],
+        ["Server","Certainly. Today's special is vegetable pasta."],
+        ["Customer","That sounds good. Does it contain any spicy ingredients?"],
+        ["Server","It is mildly spiced, but we can prepare it without extra spice."],
+        ["Customer","That would be perfect. I would like one portion."],
+        ["Server","Would you like a drink with your meal?"],
+        ["Customer","Yes, I would like a fresh fruit juice."],
+        ["Server","Certainly. I will place your order now."],
+        ["Customer","Thank you."],
+        ["Server","You are welcome. Your order will be ready shortly."]
+    ]
+},
+
+{
+    title:"Travel Agent and Traveller",
+    userRole:"Traveller",
+    lines:[
+        ["Travel Agent","Good morning. How can I help you plan your trip?"],
+        ["Traveller","I am planning a short trip and would like some suggestions."],
+        ["Travel Agent","Certainly. What type of destination do you prefer?"],
+        ["Traveller","I would like a peaceful place with interesting historical locations."],
+        ["Travel Agent","I can suggest several destinations that match your interests."],
+        ["Traveller","How many days would you recommend?"],
+        ["Travel Agent","A three-day trip would allow you to visit the main attractions comfortably."],
+        ["Traveller","That sounds good. Could you also explain the approximate cost?"],
+        ["Travel Agent","The cost depends on accommodation and transportation choices."],
+        ["Traveller","Thank you. I will consider the options."],
+        ["Travel Agent","You are welcome. Please contact us when you are ready."]
+    ]
+}
+
+];
+
+
+/* =========================================================
+   CREATE 20 CONVERSATION TASKS
+========================================================= */
+
+const conversations =
+    Array.from(
+        {length:20},
+        (_,index) =>
+            conversationTopics[
+                index %
+                conversationTopics.length
+            ]
+    );
+
+
+/* =========================================================
+   OPEN REALM
+========================================================= */
+
+function openRealm(category) {
+
+    currentCategory = category;
+
+    const completed =
+        progress[category].length;
+
+    currentTask =
+        completed < TOTAL_TASKS
+        ? completed + 1
+        : TOTAL_TASKS;
+
+    document
+        .getElementById("taskScreen")
+        .classList.add("show");
+
+    renderTasks();
+    renderContent();
+
+    window.scrollTo(0,0);
+}
+
+
+/* =========================================================
+   CLOSE REALM
+========================================================= */
+
+function closeRealm() {
+
+    speechSynthesis.cancel();
+
+    if(conversationTimer)
+        clearTimeout(conversationTimer);
+
+    if(recognition) {
+
+        try {
+            recognition.stop();
+        } catch(e) {}
+
+    }
+
+    document
+        .getElementById("taskScreen")
+        .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   RENDER TASK NUMBERS
+========================================================= */
+
+function renderTasks() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+    list.innerHTML = "";
+
+    for(let i=1;i<=TOTAL_TASKS;i++) {
+
+        const btn =
+            document.createElement(
+                "button"
+            );
+
+        const completed =
+            progress[currentCategory]
+                .includes(i);
+
+        const unlocked =
+            i === 1 ||
+            progress[currentCategory]
+                .includes(i-1);
+
+        btn.className =
+            "task-number";
+
+        if(i === currentTask)
+            btn.classList.add("current");
+
+        if(completed)
+            btn.classList.add("completed");
+
+        if(!unlocked)
+            btn.classList.add("locked");
+
+        btn.textContent =
+            completed ? "✓" : i;
+
+        if(unlocked) {
+
+            btn.onclick =
+                function() {
+
+                    currentTask = i;
+
+                    renderTasks();
+                    renderContent();
+
+                };
+
+        }
+
+        list.appendChild(btn);
+
+    }
+
+
+    const count =
+        progress[currentCategory]
+            .length;
+
+    const percentage =
+        Math.round(
+            count /
+            TOTAL_TASKS *
+            100
+        );
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percentage + "%";
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percentage + "%";
+
+    const titles = {
+
+        tongue:"Tongue Twisters",
+
+        voice:"Voice Over",
+
+        narrate:"Narrate Aloud",
+
+        conversation:"Conversation Role"
+
+    };
+
+    document.getElementById(
+        "taskCategoryTitle"
+    ).textContent =
+        titles[currentCategory];
+
+}
+
+
+/* =========================================================
+   GET CURRENT PROMPT
+========================================================= */
+
+function getCurrentPrompt() {
+
+    if(currentCategory === "tongue")
+        return tongueTexts[
+            currentTask - 1
+        ];
+
+    if(currentCategory === "voice")
+        return voiceTexts[
+            currentTask - 1
+        ];
+
+    if(currentCategory === "narrate")
+        return narrateTexts[
+            currentTask - 1
+        ];
+
+    if(currentCategory === "conversation") {
+
+        return conversations[
+            currentTask - 1
+        ].lines
+        .map(
+            line =>
+                line[0] +
+                ": " +
+                line[1]
+        )
+        .join("\n\n");
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+   RENDER CONTENT
+========================================================= */
+
+function renderContent() {
+
+    document.getElementById(
+        "taskTitle"
+    ).textContent =
+        "Task " +
+        currentTask;
+
+    document.getElementById(
+        "taskBadge"
+    ).textContent =
+        "💎 Task " +
+        currentTask +
+        " / 20";
+
+    if(currentCategory === "conversation") {
+
+        renderConversation();
+
+        return;
+
+    }
+
+
+    let label = "";
+
+    let subtitle = "";
+
+
+    if(currentCategory === "tongue") {
+
+        label =
+            "Speak the following tongue twister clearly:";
+
+        subtitle =
+            "Focus on pronunciation, rhythm and clarity.";
+
+    }
+
+
+    if(currentCategory === "voice") {
+
+        label =
+            "Voice-over passage:";
+
+        subtitle =
+            "Use expression, pauses, tone and confident delivery.";
+
+    }
+
+
+    if(currentCategory === "narrate") {
+
+        label =
+            "Narration topic and story prompt:";
+
+        subtitle =
+            "Tell the story naturally with emotion and expression.";
+
+    }
+
+
+    document.getElementById(
+        "taskSubtitle"
+    ).textContent =
+        subtitle;
+
+
+    document.getElementById(
+        "mainContent"
+    ).innerHTML = `
+
+        <div class="prompt-box">
+
+            <div class="prompt-label">
+                ${label}
+            </div>
+
+            <div class="prompt-text">
+                ${escapeHTML(
+                    getCurrentPrompt()
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+
+    clearResult();
+
+}
+
+
+/* =========================================================
+   CONVERSATION RENDER
+========================================================= */
+
+function renderConversation() {
+
+    const data =
+        conversations[
+            currentTask - 1
+        ];
+
+    document.getElementById(
+        "taskSubtitle"
+    ).textContent =
+        "Your role: " +
+        data.userRole +
+        " • Read the prompt, listen to the dialogue and respond naturally.";
+
+
+    let html = `
+
+        <div class="prompt-box">
+
+            <div class="prompt-label">
+                🎭 ${data.title}
+            </div>
+
+            <p style="
+                color:#cdbce0;
+                margin-bottom:18px;
+                line-height:1.7;
+            ">
+                Your assigned role:
+                <strong style="color:#f0cc7e">
+                    ${data.userRole}
+                </strong>
+                <br>
+                Press "Read Prompt" to hear each speaker.
+                There will be a 2-second pause between turns.
+                Then record your assigned role.
+            </p>
+
+            <div class="conversation-list">
+    `;
+
+
+    data.lines.forEach(
+        line => {
+
+            html += `
+
+                <div class="dialogue">
+
+                    <div class="dialogue-role">
+                        ${line[0]}
+                    </div>
+
+                    <div class="dialogue-text">
+                        ${line[1]}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </div>
+        </div>
+    `;
+
+
+    document.getElementById(
+        "mainContent"
+    ).innerHTML =
+        html;
+
+
+    clearResult();
+
+}
+
+
+/* =========================================================
+   READ PROMPT
+========================================================= */
+
+function readPrompt() {
+
+    speechSynthesis.cancel();
+
+    if(currentCategory === "conversation") {
+
+        readConversation();
+
+        return;
+
+    }
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            getCurrentPrompt()
+        );
+
+    utterance.rate = .82;
+    utterance.pitch = 1;
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   READ CONVERSATION WITH 2 SECOND DELAY
+========================================================= */
+
+function readConversation() {
+
+    const data =
+        conversations[
+            currentTask - 1
+        ];
+
+    let index = 0;
+
+    const status =
+        document.getElementById(
+            "conversationStatus"
+        );
+
+
+    function nextSpeaker() {
+
+        if(index >= data.lines.length) {
+
+            status.textContent =
+                "✓ Conversation prompt completed. Now record your role: " +
+                data.userRole;
+
+            return;
+
+        }
+
+
+        const line =
+            data.lines[index];
+
+        status.textContent =
+            line[0] +
+            " is speaking...";
+
+
+        const utterance =
+            new SpeechSynthesisUtterance(
+                line[1]
+            );
+
+        utterance.rate = .84;
+
+
+        utterance.onend =
+            function() {
+
+                index++;
+
+                if(index < data.lines.length) {
+
+                    status.textContent =
+                        "⏳ 2 seconds before next speaker...";
+
+                    conversationTimer =
+                        setTimeout(
+                            nextSpeaker,
+                            2000
+                        );
+
+                } else {
+
+                    status.textContent =
+                        "✓ Read Prompt completed.";
+
+                }
+
+            };
+
+
+        speechSynthesis.speak(
+            utterance
+        );
+
+    }
+
+
+    nextSpeaker();
+
+}
+
+
+/* =========================================================
+   SPEECH RECOGNITION
+========================================================= */
+
+function setupRecognition() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if(!SpeechRecognition) {
+
+        alert(
+            "Speech recognition is not supported. Please use Google Chrome or Microsoft Edge."
+        );
+
+        return null;
+
+    }
+
+
+    const rec =
+        new SpeechRecognition();
+
+    rec.lang = "en-US";
+
+    rec.continuous = true;
+
+    rec.interimResults = true;
+
+
+    let finalText = "";
+
+
+    rec.onresult =
+        function(event) {
+
+            let interim = "";
+
+
+            for(
+                let i = event.resultIndex;
+                i < event.results.length;
+                i++
+            ) {
+
+                const text =
+                    event.results[i][0]
+                        .transcript;
+
+
+                if(
+                    event.results[i]
+                        .isFinal
+                ) {
+
+                    finalText +=
+                        text + " ";
+
+                } else {
+
+                    interim += text;
+
+                }
+
+            }
+
+
+            document.getElementById(
+                "transcript"
+            ).textContent =
+                finalText + interim;
+
+        };
+
+
+    rec.onend =
+        function() {
+
+            const text =
+                document.getElementById(
+                    "transcript"
+                ).textContent;
+
+
+            if(
+                text &&
+                !text.includes(
+                    "Your recognized"
+                )
+            ) {
+
+                calculateScore(text);
+
+            }
+
+        };
+
+
+    rec.onerror =
+        function(event) {
+
+            console.log(
+                "Speech recognition:",
+                event.error
+            );
+
+        };
+
+
+    return rec;
+
+}
+
+
+/* =========================================================
+   START RECORDING
+========================================================= */
+
+async function startRecording() {
+
+    clearResult();
+
+
+    document.getElementById(
+        "scoreMessage"
+    ).textContent =
+        "🎙️ Recording... Speak clearly.";
+
+
+    // Speech recognition is intentionally disabled.
+    // The score is based on recording duration only.
+    recordingStartedAt = Date.now();
+    audioChunks = [];
+
+
+    try {
+
+        const stream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+                    audio:true
+                });
+
+
+        mediaRecorder =
+            new MediaRecorder(
+                stream
+            );
+
+
+        mediaRecorder.ondataavailable =
+            function(event) {
+
+                if(
+                    event.data.size > 0
+                ) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+
+                }
+
+            };
+
+
+        mediaRecorder.onstop =
+            function() {
+
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type:"audio/webm"
+                        }
+                    );
+
+
+                recordedAudio =
+                    new Audio(
+                        URL.createObjectURL(
+                            blob
+                        )
+                    );
+
+                calculateDurationScore();
+
+            };
+
+
+        mediaRecorder.start();
+
+    } catch(error) {
+
+        console.log(
+            "Microphone error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   STOP RECORDING
+========================================================= */
+
+function stopRecording() {
+
+    if(recognition) {
+
+        try {
+
+            recognition.stop();
+
+        } catch(error) {}
+
+    }
+
+
+    if(
+        mediaRecorder &&
+        mediaRecorder.state !==
+        "inactive"
+    ) {
+
+        mediaRecorder.stop();
+
+    }
+
+
+    document.getElementById(
+        "scoreMessage"
+    ).textContent =
+        "⏳ Calculating speaking activity score...";
+
+}
+
+
+/* =========================================================
+   PLAYBACK
+========================================================= */
+
+function playRecording() {
+
+    if(!recordedAudio) {
+
+        alert(
+            "Please record your speech first."
+        );
+
+        return;
+
+    }
+
+
+    recordedAudio.currentTime = 0;
+
+    recordedAudio.play();
+
+}
+
+
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
+function normalizeText(text) {
+
+    return text
+        .toLowerCase()
+        .replace(
+            /[^\w\s]/g,
+            " "
+        )
+        .replace(
+            /\s+/g,
+            " "
+        )
+        .trim();
+
+}
+
+
+/* =========================================================
+   LEVENSHTEIN SIMILARITY
+========================================================= */
+
+function levenshteinSimilarity(a,b) {
+
+    if(a === b)
+        return 1;
+
+
+    const matrix = [];
+
+
+    for(
+        let i=0;
+        i<=b.length;
+        i++
+    ) {
+
+        matrix[i] = [i];
+
+    }
+
+
+    for(
+        let j=0;
+        j<=a.length;
+        j++
+    ) {
+
+        matrix[0][j] = j;
+
+    }
+
+
+    for(
+        let i=1;
+        i<=b.length;
+        i++
+    ) {
+
+        for(
+            let j=1;
+            j<=a.length;
+            j++
+        ) {
+
+            if(
+                b.charAt(i-1) ===
+                a.charAt(j-1)
+            ) {
+
+                matrix[i][j] =
+                    matrix[i-1][j-1];
+
+            } else {
+
+                matrix[i][j] =
+                    Math.min(
+
+                        matrix[i-1][j-1] + 1,
+
+                        matrix[i][j-1] + 1,
+
+                        matrix[i-1][j] + 1
+
+                    );
+
+            }
+
+        }
+
+    }
+
+
+    const distance =
+        matrix[b.length][a.length];
+
+
+    return 1 -
+        distance /
+        Math.max(
+            a.length,
+            b.length,
+            1
+        );
+
+}
+
+
+/* =========================================================
+   WORD SIMILARITY
+========================================================= */
+
+function wordSimilarity(
+    expected,
+    spoken
+) {
+
+    const expectedWords =
+        normalizeText(expected)
+            .split(" ")
+            .filter(Boolean);
+
+
+    const spokenWords =
+        normalizeText(spoken)
+            .split(" ")
+            .filter(Boolean);
+
+
+    if(
+        !expectedWords.length ||
+        !spokenWords.length
+    )
+        return 0;
+
+
+    let matched = 0;
+
+    const used =
+        new Set();
+
+
+    spokenWords.forEach(
+        word => {
+
+            let bestIndex = -1;
+
+            let bestScore = 0;
+
+
+            expectedWords.forEach(
+                (expectedWord,index) => {
+
+                    if(
+                        used.has(index)
+                    )
+                        return;
+
+
+                    const similarity =
+                        levenshteinSimilarity(
+                            word,
+                            expectedWord
+                        );
+
+
+                    if(
+                        similarity >
+                        bestScore
+                    ) {
+
+                        bestScore =
+                            similarity;
+
+                        bestIndex =
+                            index;
+
+                    }
+
+                }
+            );
+
+
+            if(
+                bestScore >= .72 &&
+                bestIndex !== -1
+            ) {
+
+                matched++;
+
+                used.add(
+                    bestIndex
+                );
+
+            }
+
+        }
+    );
+
+
+    return (
+        matched /
+        expectedWords.length
+    ) * 100;
+
+}
+
+
+/* =========================================================
+   CONVERSATION SCORE
+========================================================= */
+
+function getConversationUserText() {
+
+    const data =
+        conversations[
+            currentTask - 1
+        ];
+
+
+    return data.lines
+        .filter(
+            line =>
+                line[0] ===
+                data.userRole
+        )
+        .map(
+            line => line[1]
+        )
+        .join(" ");
+
+}
+
+
+/* =========================================================
+   CALCULATE SCORE
+========================================================= */
+
+function calculateScore(spokenText) {
+
+    let expected =
+        getCurrentPrompt();
+
+
+    if(
+        currentCategory ===
+        "conversation"
+    ) {
+
+        expected =
+            getConversationUserText();
+
+    }
+
+
+    let score =
+        wordSimilarity(
+            expected,
+            spokenText
+        );
+
+
+    /*
+      Small NLP bonus for sentence similarity.
+    */
+
+    const spokenLength =
+        normalizeText(
+            spokenText
+        ).split(" ").length;
+
+
+    const expectedLength =
+        normalizeText(
+            expected
+        ).split(" ").length;
+
+
+    const lengthRatio =
+        Math.min(
+            spokenLength /
+            Math.max(
+                expectedLength,
+                1
+            ),
+            1
+        );
+
+
+    score =
+        score * .9 +
+        lengthRatio * 10;
+
+
+    score =
+        Math.min(
+            100,
+            Math.round(score)
+        );
+
+
+    displayScore(
+        score
+    );
+
+}
+
+
+/* =========================================================
+   DISPLAY SCORE
+========================================================= */
+
+function displayScore(score) {
+
+    document.getElementById(
+        "score"
+    ).textContent =
+        score + "%";
+
+
+    let message = "";
+
+
+    if(score >= 85) {
+
+        message =
+            "Excellent! Your speech closely matches the expected content.";
+
+    }
+    else if(score >= 70) {
+
+        message =
+            "Very good! Your pronunciation and word matching are strong.";
+
+    }
+    else if(score >= 55) {
+
+        message =
+            "Good job! You have reached the required 55% pass mark.";
+
+    }
+    else {
+
+        message =
+            "Keep practising. Speak slowly and try to match the prompt more closely.";
+
+    }
+
+
+    document.getElementById(
+        "nlpAnalysis"
+    ).innerHTML = `
+
+        <p>
+            <strong>Word Similarity:</strong>
+            ${score}%
+        </p>
+
+        <p style="margin-top:10px;">
+            <strong>NLP Result:</strong>
+            ${message}
+        </p>
+
+    `;
+
+
+    if(
+        score >= PASS_MARK
+    ) {
+
+        document.getElementById(
+            "scoreMessage"
+        ).innerHTML = `
+
+            <span class="success">
+                ✓ TASK COMPLETED!
+                Score: ${score}%
+                • Next crystal unlocked.
+            </span>
+
+        `;
+
+
+        completeTask();
+
+    } else {
+
+        document.getElementById(
+            "scoreMessage"
+        ).innerHTML = `
+
+            <span class="failed">
+                ✗ Score: ${score}%.
+                You need 55% or above.
+                Try again.
+            </span>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETE TASK
+========================================================= */
+
+function completeTask() {
+
+    if(
+        !progress[currentCategory]
+            .includes(currentTask)
+    ) {
+
+        progress[currentCategory]
+            .push(currentTask);
+
+
+        progress[currentCategory]
+            .sort(
+                (a,b) => a-b
+            );
+
+
+        saveProgress();
+
+        renderTasks();
+
+    }
+
+}
+
+
+/* =========================================================
+   CLEAR RESULT
+========================================================= */
+
+function clearResult() {
+
+    if(recognition) {
+
+        try {
+
+            recognition.stop();
+
+        } catch(error) {}
+
+    }
+
+
+    document.getElementById(
+        "transcript"
+    ).innerHTML = `
+
+        <span class="placeholder">
+            Your recognized speech will appear here...
+        </span>
+
+    `;
+
+
+    document.getElementById(
+        "nlpAnalysis"
+    ).innerHTML = `
+
+        <span class="placeholder">
+            Complete your recording to see NLP analysis...
+        </span>
+
+    `;
+
+
+    document.getElementById(
+        "score"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "scoreMessage"
+    ).textContent =
+        "Speaking-time score: 55% required";
+
+
+    document.getElementById(
+        "conversationStatus"
+    ).textContent =
+        "";
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text) {
+
+    return text
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   HOME / PROGRESS / ACHIEVEMENTS / LEADERBOARD
+========================================================= */
+
+function showHome() {
+
+    closeRealm();
+
+}
+
+
+function showProgress() {
+
+    const total =
+        Object.values(progress)
+            .reduce(
+                (sum,arr) =>
+                    sum + arr.length,
+                0
+            );
+
+
+    alert(
+        "Speak Wise Progress\n\n" +
+        "Tongue Twisters: " +
+        progress.tongue.length +
+        " / 20\n\n" +
+
+        "Voice Over: " +
+        progress.voice.length +
+        " / 20\n\n" +
+
+        "Narrate Aloud: " +
+        progress.narrate.length +
+        " / 20\n\n" +
+
+        "Conversation Role: " +
+        progress.conversation.length +
+        " / 20\n\n" +
+
+        "Total Completed: " +
+        total +
+        " / 80"
+    );
+
+}
+
+
+function showAchievements() {
+
+    const total =
+        Object.values(progress)
+            .reduce(
+                (sum,arr) =>
+                    sum + arr.length,
+                0
+            );
+
+
+    if(total === 80) {
+
+        alert(
+            "🏆 Crystal Castle Unlocked!\n\n" +
+            "You completed all 80 speaking tasks!"
+        );
+
+    } else {
+
+        alert(
+            "🏆 Achievements\n\n" +
+            "Complete all 80 speaking tasks " +
+            "to unlock the Crystal Castle.\n\n" +
+            "Current progress: " +
+            total +
+            " / 80"
+        );
+
+    }
+
+}
+
+
+function showLeaderboard() {
+
+    alert(
+        "♛ Leaderboard\n\n" +
+        "Your local progress is currently " +
+        Object.values(progress)
+            .reduce(
+                (sum,arr) =>
+                    sum + arr.length,
+                0
+            ) +
+        " completed tasks.\n\n" +
+        "Keep speaking and improve your score!"
+    );
+
+}
+
+
+function showHelp() {
+
+    alert(
+        "❓ Speak Wise Help\n\n" +
+
+        "1. Select a communication realm.\n" +
+
+        "2. Start with Task 1.\n" +
+
+        "3. Press Read Prompt.\n" +
+
+        "4. Press Start Recording.\n" +
+
+        "5. Speak clearly into your microphone.\n" +
+
+        "6. Press Stop.\n" +
+
+        "7. Your speech is converted to text.\n" +
+
+        "8. NLP similarity calculates your score.\n" +
+
+        "9. Score 55% or above to complete the task.\n" +
+
+        "10. The next crystal unlocks automatically."
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        /*
+          Home page is visible initially.
+          Task screen remains hidden until
+          ENTER REALM is clicked.
+        */
+
+    }
+);
+
+</script>
+
+</body>
+</html>
