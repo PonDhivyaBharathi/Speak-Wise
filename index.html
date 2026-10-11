@@ -3205,15 +3205,12 @@ function setupRecognition() {
                 ).textContent;
 
 
-            if(
-                text &&
-                !text.includes(
-                    "Your recognized"
-                )
-            ) {
-
-                calculateScore(text);
-
+            const cleanedText = (text || "").trim();
+            if (cleanedText && !cleanedText.includes("Your recognized speech will appear here")) {
+                calculateScore(cleanedText);
+            } else {
+                document.getElementById("scoreMessage").textContent =
+                    "No speech was recognized. Check your microphone and speak clearly, then try again.";
             }
 
         };
@@ -3221,12 +3218,15 @@ function setupRecognition() {
 
     rec.onerror =
         function(event) {
-
-            console.log(
-                "Speech recognition:",
-                event.error
-            );
-
+            console.log("Speech recognition:", event.error);
+            const status = document.getElementById("scoreMessage");
+            if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+                status.textContent = "Microphone permission was denied. Allow microphone access and try again.";
+            } else if (event.error === "no-speech") {
+                status.textContent = "No speech detected. Speak after pressing Start Recording.";
+            } else {
+                status.textContent = "Speech recognition issue (" + event.error + "). Please try again in Chrome or Edge.";
+            }
         };
 
 
@@ -3240,89 +3240,48 @@ function setupRecognition() {
 ========================================================= */
 
 async function startRecording() {
-
     clearResult();
-
-
-    document.getElementById(
-        "scoreMessage"
-    ).textContent =
-        "🎙️ Recording... Speak clearly.";
-
-
-    // Speech recognition is intentionally disabled.
-    // The score is based on recording duration only.
     recordingStartedAt = Date.now();
     audioChunks = [];
 
+    const status = document.getElementById("scoreMessage");
+    status.textContent = "🎙️ Recording... Speak clearly.";
 
     try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error("Microphone access is unavailable. Open this site in Chrome or Edge using HTTPS.");
+        }
 
-        const stream =
-            await navigator
-                .mediaDevices
-                .getUserMedia({
-                    audio:true
-                });
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = function(event) {
+            if (event.data && event.data.size > 0) audioChunks.push(event.data);
+        };
 
-        mediaRecorder =
-            new MediaRecorder(
-                stream
-            );
-
-
-        mediaRecorder.ondataavailable =
-            function(event) {
-
-                if(
-                    event.data.size > 0
-                ) {
-
-                    audioChunks.push(
-                        event.data
-                    );
-
-                }
-
-            };
-
-
-        mediaRecorder.onstop =
-            function() {
-
-                const blob =
-                    new Blob(
-                        audioChunks,
-                        {
-                            type:"audio/webm"
-                        }
-                    );
-
-
-                recordedAudio =
-                    new Audio(
-                        URL.createObjectURL(
-                            blob
-                        )
-                    );
-
-                calculateDurationScore();
-
-            };
-
+        mediaRecorder.onstop = function() {
+            const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || "audio/webm" });
+            recordedAudio = new Audio(URL.createObjectURL(blob));
+            stream.getTracks().forEach(track => track.stop());
+        };
 
         mediaRecorder.start();
 
-    } catch(error) {
-
-        console.log(
-            "Microphone error:",
-            error
-        );
-
+        recognition = setupRecognition();
+        if (recognition) {
+            try {
+                recognition.start();
+            } catch (recognitionError) {
+                status.textContent = "Speech recognition could not start. Refresh and try Chrome or Edge.";
+                console.error("Recognition start error:", recognitionError);
+            }
+        } else {
+            status.textContent = "Microphone recording started, but speech recognition is not supported in this browser. Try Chrome or Edge.";
+        }
+    } catch (error) {
+        console.error("Microphone error:", error);
+        status.textContent = "Microphone error: allow microphone access, then press Start Recording again.";
     }
-
 }
 
 
@@ -3331,34 +3290,28 @@ async function startRecording() {
 ========================================================= */
 
 function stopRecording() {
+    const status = document.getElementById("scoreMessage");
+    let didStopSomething = false;
 
-    if(recognition) {
-
+    if (recognition) {
         try {
-
             recognition.stop();
-
-        } catch(error) {}
-
+            didStopSomething = true;
+        } catch (error) {
+            console.warn("Recognition stop:", error);
+        }
     }
 
-
-    if(
-        mediaRecorder &&
-        mediaRecorder.state !==
-        "inactive"
-    ) {
-
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
         mediaRecorder.stop();
-
+        didStopSomething = true;
     }
 
-
-    document.getElementById(
-        "scoreMessage"
-    ).textContent =
-        "⏳ Calculating speaking activity score...";
-
+    if (didStopSomething) {
+        status.textContent = "⏳ Finishing speech recognition and calculating your score...";
+    } else {
+        status.textContent = "Press Start Recording, speak the prompt, and then press Stop.";
+    }
 }
 
 
